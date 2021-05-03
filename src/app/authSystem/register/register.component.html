@@ -1,0 +1,111 @@
+<app-loader *ngIf="loading"></app-loader>
+
+<div class="container" *ngIf="!loading">
+  <div class="row my-2">
+    <div class="col-md-1 col-12 p-0"></div>
+    <div class="col-5 ourForm">
+      <div class="row holder">
+        <div class="col-md-5 col-12 vert">
+          <h3 class="my-auto">مرحبا بك</h3>
+        </div>
+        <div class="col-md-7 col-12 logo">
+          <img src="../../../assets/logo.png" class="w-100" alt="logo" />
+        </div>
+      </div>
+      <form [formGroup]="registerationForm" (ngSubmit)="onSubmit()">
+        <div class="row mt-3">
+          <div class="col-12">
+            <div class="form-group">
+              <input
+                type="text"
+                maxLength="14"
+                minLength="14"
+                [class]="
+                  (!registerationForm.controls.nationalId.valid &&
+                    registerationForm.controls.nationalId.touched) ||
+                  !controlIsRight
+                    ? 'outline-danger form-control'
+                    : 'form-control outline-normal'
+                "
+                placeholder="* الرقم القومى"
+                formControlName="nationalId"
+                (change)="checkNumber($event)"
+              />
+            </div>
+            <p class="text-danger" *ngIf="!controlIsRight">
+              هذا الرقم القومى غير صحيح
+            </p>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <input
+                type="email"
+                [class]="
+                  !registerationForm.controls.email.valid &&
+                  registerationForm.controls.email.touched
+                    ? 'outline-danger form-control'
+                    : 'form-control outline-normal'
+                "
+                placeholder="* البريد الالكترونى"
+                formControlName="email"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <input
+                type="password"
+                [class]="
+                  !registerationForm.controls.password.valid &&
+                  registerationForm.controls.password.touched
+                    ? 'outline-danger form-control'
+                    : 'form-control outline-normal'
+                "
+                placeholder="* كلمة المرور"
+                formControlName="password"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <input
+                type="password"
+                (keyup)="checkPassword(confirmPassword)"
+                [class]="
+                  passwordConfirmed
+                    ? 'outline-danger form-control'
+                    : 'form-control outline-normal'
+                "
+                placeholder="* تأكيد كلمة المرور"
+                #confirmPassword
+              />
+            </div>
+            <p class="text-danger" *ngIf="passwordConfirmed">
+              كلمة المرور غير متطابقة
+            </p>
+          </div>
+          <div class="col-12 mt-2">
+            <button
+              [disabled]="
+                registerationForm.invalid ||
+                !controlIsRight ||
+                passwordConfirmed
+              "
+              type="submit"
+              class="btn btn-primary w-100"
+            >
+              تسجيل
+            </button>
+          </div>
+          <div class="col-12 my-2">
+            عندك حساب بالفعل ؟!<a routerLink="/Login">تسجيل الدخول</a>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-5 p-0">
+      <img src="../../../assets/karnak.jpg" class="w-100 h-100" alt="karnak" />
+    </div>
+    <div class="col-md-1 col-12 p-0"></div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<a class="nav-link" routerLink="/Checkout" routerLinkActive="active">
+  <div class="num">
+    <span class="number" *ngIf="this.PizzaService.itemsOnCart > 0">
+      {{ PizzaService.itemsOnCart }}
+    </span>
+    <i class="fas fa-shopping-cart icons"></i>
+  </div>
+</a>
