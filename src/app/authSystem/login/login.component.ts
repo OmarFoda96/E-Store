@@ -1,4 +1,3 @@
-import { ResponseModel } from './../../models/response.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthSystemsService } from './../services/auth-systems.service';
 import { Component, OnInit } from '@angular/core';
@@ -48,7 +47,7 @@ export class LoginComponent implements OnInit {
       (error) => {
         this.loading = false;
         if (error.status == 400) {
-          let errorMsg: ResponseModel = error.error;
+          let errorMsg = error.error;
 
           if (errorMsg.goToRegister) {
             this.router.navigate(['/Register']);

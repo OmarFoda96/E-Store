@@ -1,4 +1,3 @@
-import { ResponseModel } from './../../models/response.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -43,7 +42,7 @@ export class ForgetPasswordComponent implements OnInit {
       (error) => {
         this.loading = false;
         if (error.status == 400) {
-          let errorMsg: ResponseModel = error.error;
+          let errorMsg = error.error;
 
           if (errorMsg.goToRegister) {
             this.router.navigate(['/Register']);
