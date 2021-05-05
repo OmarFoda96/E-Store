@@ -3,7 +3,6 @@ import { LogService } from './../services/log.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { ResponseModel } from 'src/app/models/response.interface';
 
 @Component({
   selector: 'app-change-password',
@@ -49,7 +48,7 @@ export class ChangePasswordComponent implements OnInit {
       (error) => {
         this.loading = false;
         if (error.status == 400) {
-          let errorMsg: ResponseModel = error.error;
+          let errorMsg = error.error;
 
           if (errorMsg.goToRegister) {
             this.router.navigate(['/Register']);
