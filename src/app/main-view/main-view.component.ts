@@ -1,4 +1,3 @@
-import { PizzaService } from './../services/pizza-service.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,13 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-view.component.css'],
 })
 export class MainViewComponent implements OnInit {
-  constructor(private pizzaService: PizzaService) {}
+  constructor() {}
 
-  pizzas;
+  // pizzas;
   ngOnInit(): void {
-    this.getAllPizza();
   }
-  getAllPizza() {
-    this.pizzas = this.pizzaService.getAllData();
-  }
+  // getAllPizza() {
+  //   this.pizzas = this.pizzaService.getAllData();
+  // }
 }

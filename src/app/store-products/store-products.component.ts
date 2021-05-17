@@ -1,7 +1,9 @@
+import { CategoriesModel } from './../Models/Categories.interface';
+import { ProductsModel } from './../Models/Products.Interface';
+import { ProductsService } from './../services/products.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { PizzaService } from '../services/pizza-service.service';
 
 @Component({
   selector: 'app-store-products',
@@ -11,9 +13,10 @@ import { PizzaService } from '../services/pizza-service.service';
 export class StoreProductsComponent implements OnInit {
   dataLoaded: boolean = true;
 
-  pizzas;
+  products:ProductsModel[];
+  categories:CategoriesModel[];
   constructor(
-    private pizzaService: PizzaService,
+    private productsService: ProductsService,
     config: NgbModalConfig,
     private modalService: NgbModal,
     private toasterService: ToastrService
@@ -27,13 +30,27 @@ export class StoreProductsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getAllData();
+    this.getAllCategories()
   }
 
   getAllData() {
     this.dataLoaded = false;
-    setTimeout(() => {
-      this.dataLoaded = true;
-      this.pizzas = this.pizzaService.getAllData();
-    }, 1000);
+    this.productsService.getAllData().subscribe(
+      (data:any[])=>{
+        this.products=data
+        this.dataLoaded = true;
+      }
+    );
   }
+
+  getAllCategories() {
+    this.dataLoaded = false;
+    this.productsService.getAllCategories().subscribe(
+      (data:any[])=>{
+        this.categories=data
+        this.dataLoaded = true;
+      }
+    );
+  }
+
 }

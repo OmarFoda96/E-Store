@@ -14,14 +14,12 @@
         </div>
         <div class="form-group">
           <label for=""> ابحث بالنوع </label>
-          <input list="categories" class="form-control" />
-          <datalist id="categories">
-            <option value="Edge"></option>
-            <option value="Firefox"></option>
-            <option value="Chrome"></option>
-            <option value="Opera"></option>
-            <option value="Safari"></option>
-          </datalist>
+          <select class="form-control">
+            <option value=""></option>
+            <option *ngFor="let item of categories" [value]="item.id">
+              {{ item.nameAr }}
+            </option>
+          </select>
         </div>
         <div class="form-group">
           <label for=""> ابحث باسم المنتج </label>
@@ -31,8 +29,11 @@
     </div>
     <div class="col-9">
       <div class="row productsContainer">
-        <div class="col-lg-4 col-md-6 col-12 my-2" *ngFor="let pizza of pizzas">
-          <app-product-card [pizza]="pizza"></app-product-card>
+        <div
+          class="col-lg-4 col-md-6 col-12 my-2"
+          *ngFor="let product of products"
+        >
+          <app-product-card [product]="product"></app-product-card>
         </div>
       </div>
     </div>
