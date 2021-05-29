@@ -30,17 +30,17 @@ export class TokenInterceptor implements HttpInterceptor {
             if (errorMsg.goToRegister) {
               this.router.navigate(['/Register']);
               localStorage.setItem('logState', 'false');
-              return error;
+              return throwError(error);
             } else {
               this.toasterService.error(errorMsg.nameAr, 'عملية غير ناجحة');
-              return error;
+              return throwError(error);
             }
           } else if (error.status == 500) {
             this.router.navigate(['/Error500']);
-            return error;
+            return throwError(error);
           } else {
             this.router.navigate(['/ConnectionError']);
-            return error;
+            return throwError(error);
           }
         })
       );

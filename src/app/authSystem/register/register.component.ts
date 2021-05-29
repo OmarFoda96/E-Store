@@ -1,9 +1,15 @@
+import { UserModel } from './../../Models/user.interface';
+import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AuthSystemsService } from '../services/auth-systems.service';
-import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbModalConfig,
+  NgbModalOptions,
+} from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -13,118 +19,140 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe],
 })
 export class RegisterComponent implements OnInit {
-  loading: boolean = false;
+  profilePicture: any = '../../assets/profile-unknown.png';
+
+  public imagePath;
+  selectedFile: File;
+  nationalNumber: string;
+  fileUploaded = false;
+  fileType = true;
+  loading = false;
+  url = environment.base_url;
+
+  form: FormGroup = new FormGroup({
+    Username: new FormControl(null, [Validators.required]),
+    Password: new FormControl(null, [Validators.required]),
+    FullName: new FormControl(null, [Validators.required]),
+    Email: new FormControl(null, [Validators.required, Validators.email]),
+    Gender: new FormControl(null, [Validators.required]),
+    Birthday: new FormControl(null, [Validators.required]),
+    Address: new FormControl(null, [Validators.required]),
+    Phone: new FormControl(null, [Validators.required]),
+    Roles: new FormControl(null, [Validators.required]),
+    Balance: new FormControl(0, [Validators.required]),
+  });
+  get Username() {
+    return this.form.controls.Username;
+  }
+  get Password() {
+    return this.form.controls.Password;
+  }
+  get FullName() {
+    return this.form.controls.FullName;
+  }
+  get Email() {
+    return this.form.controls.Email;
+  }
+  get Gender() {
+    return this.form.controls.Gender;
+  }
+  get Birthday() {
+    return this.form.controls.Birthday;
+  }
+  get Address() {
+    return this.form.controls.Address;
+  }
+  get Phone() {
+    return this.form.controls.Phone;
+  }
+  get Roles() {
+    return this.form.controls.Phone;
+  }
+  Photo = new FormData();
+
   constructor(
-    private modalservice: NgbModal,
+    private toastrService: ToastrService,
     private authService: AuthSystemsService,
-    private toasterService: ToastrService,
-    private router: Router
-  ) {}
-  ngbModalOptions: NgbModalOptions = {
-    backdrop: 'static',
-    keyboard: false,
-    ariaLabelledBy: 'modal-basic-title',
-    scrollable: true,
-  };
+    private datePipe: DatePipe,
+    config: NgbModalConfig,
+    private modalService: NgbModal
+  ) {
+    config.backdrop = 'static';
+    config.keyboard = false;
+  }
+
+  userData: UserModel;
 
   ngOnInit(): void {}
 
-  registerationForm: FormGroup = new FormGroup({
-    nationalId: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required),
-  });
+  preview(e) {
+    this.selectedFile = e.target.files[0];
+    if (
+      e.target.files.length > 0 &&
+      e.target.files[0].type.indexOf('image') > -1
+    ) {
+      this.fileUploaded = true;
+      this.fileType = true;
 
-  get passwordINput() {
-    return this.registerationForm.controls.password;
-  }
-
-  passwordConfirmed: boolean = false;
-  checkPassword(f) {
-    if (f.value == this.passwordINput.value) {
-      this.passwordConfirmed = false;
+      if (this.Photo.get('Photo')) {
+        this.Photo.set('Photo', this.selectedFile, this.selectedFile.name);
+      } else {
+        this.Photo.append('Photo', this.selectedFile, this.selectedFile.name);
+      }
     } else {
-      this.passwordConfirmed = true;
+      this.fileType = false;
+      this.fileUploaded = false;
     }
+
+    let reader = new FileReader();
+    this.imagePath = e.target.files;
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = (_e) => {
+      this.profilePicture = reader.result;
+    };
   }
+
   onSubmit() {
+    for (const key in this.form.value) {
+      if (key !== 'Photo') {
+        this.Photo.append(key, this.form.value[key]);
+      }
+    }
+    if (!this.Photo.get('Photo')) {
+      !this.form.valid;
+    }
+
     this.loading = true;
-    this.authService.registerUser(this.registerationForm.value).subscribe(
-      (data) => {
+    debugger;
+    this.authService.registerUser(this.Photo).subscribe(
+      (data: any) => {
         this.loading = false;
-        this.router.navigate(['/Login']);
-        // location.href = '';
-        this.modalservice.dismissAll();
-        this.toasterService.success('تم تسجيل الحساب بنجاح', 'عملية  ناجحة');
+        this.toastrService.success('تم اضافة المستخدم بنجاح', 'عملية ناجحة');
+        // this.router.navigate(['/Login']);
+        this.form.reset();
+        location.href = '/Login';
       },
       (error) => {
         this.loading = false;
-        this.toasterService.error('هذا الحساب موجود بالفعل', 'عملية غير ناجحة');
-        this.modalservice.dismissAll();
-        // this.errorMessage = error.error.message;
+        this.toastrService.error('لم يتم اضافة المستخدم', 'عملية غير ناجحة');
+        for (const key in this.form.value) {
+          if (key !== 'Photo') {
+            this.Photo.delete(key);
+          }
+        }
       }
     );
   }
-
-  formIsRight: boolean = false;
-  controlIsRight: boolean = true;
-  numberPattern = /^[0-9]*$/;
-  ssnError: string = '';
-  checkNumber(e) {
-    let ssn = e.target.value.split('');
-    let ssnYear = parseInt(ssn[1] + ssn[2]);
-    let ssnMonth = parseInt(ssn[3] + ssn[4]);
-    let ssnDay = parseInt(ssn[5] + ssn[6]);
-    let ssnGovernrate = parseInt(ssn[7] + ssn[8]);
-
-    // debugger
-    if (this.numberPattern.test(e.target.value) == false) {
-      this.ssnError = 'يجب ادخال البيانات على هيئة ارقام فقط';
-      this.controlIsRight = false;
-      this.formIsRight = false;
-    } else if (e.target.value == '') {
-      this.ssnError = 'هذه الخانة مطلوبة';
-      this.controlIsRight = false;
-      this.formIsRight = false;
-    } else if (e.target.value.length != 14) {
-      this.ssnError = 'الرقم القومى يجب ان يكون 14 رقم';
-      this.controlIsRight = false;
-      this.formIsRight = false;
-    } else if (
-      ssn[0] == '2' &&
-      (ssnYear < 40 ||
-        ssnYear > 99 ||
-        ssnMonth < 1 ||
-        ssnMonth > 12 ||
-        ssnDay < 1 ||
-        ssnDay > 31 ||
-        ssnGovernrate < 0 ||
-        ssnGovernrate > 28)
-    ) {
-      this.ssnError = 'هذا الرقم القومى غير صحيح';
-      this.controlIsRight = false;
-      this.formIsRight = false;
-    } else if (
-      ssn[0] == '3' &&
-      (ssnYear < 0 ||
-        ssnYear > 99 ||
-        ssnMonth < 1 ||
-        ssnMonth > 12 ||
-        ssnDay < 1 ||
-        ssnDay > 31 ||
-        ssnGovernrate < 0 ||
-        ssnGovernrate > 28)
-    ) {
-      this.ssnError = 'هذا الرقم القومى غير صحيح';
-      this.controlIsRight = false;
-      this.formIsRight = false;
-    } else if (ssn[0] != '3' && ssn[0] != '2') {
-      this.ssnError = 'هذا الرقم القومى غير صحيح';
-      this.controlIsRight = false;
-      this.formIsRight = false;
-    } else {
-      this.controlIsRight = true;
-      this.formIsRight = true;
-    }
+  open(content) {
+    this.modalService.open(content, {
+      size: 'lg',
+      scrollable: true,
+      centered: true,
+    });
+  }
+  goUpload() {
+    this.modalService.dismissAll();
+    const profileIMg = document.getElementById('profilePicture');
+    profileIMg.click();
   }
 }

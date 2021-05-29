@@ -1,13 +1,13 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "extends": "./tsconfig.base.json",
-  "angularCompilerOptions": {
-    "strictTemplates": true,
-  },
   "compilerOptions": {
     "outDir": "./out-tsc/app",
     "types": [],
     "resolveJsonModule": true
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true
   },
   "files": ["src/main.ts", "src/polyfills.ts"],
   "include": ["src/**/*.d.ts"]

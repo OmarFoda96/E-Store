@@ -26,6 +26,7 @@ body {
 * {
   direction: rtl;
   font-family: 'Tajawal', sans-serif;
+  text-align: right;
 }
 
 .titles {

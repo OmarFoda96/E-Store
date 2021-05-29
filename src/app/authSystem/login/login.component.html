@@ -1,15 +1,11 @@
-<app-loader *ngIf="loading"></app-loader>
+<app-spinner *ngIf="loading"></app-spinner>
 
 <div class="container logForm" *ngIf="!loading">
   <div class="row my-3">
-    <div class="col-md-2 col-12 p-0"></div>
-    <div class="col-md-4 col-12 ourForm">
+    <div class="col-md-4 col-12 ourForm mx-auto">
       <div class="row holder">
         <div class="col-md-5 col-12 vert">
           <h3 class="my-auto">مرحبا بك</h3>
-        </div>
-        <div class="col-md-7 col-12 logo">
-          <img src="../../../assets/logo.png" class="w-100" alt="logo" />
         </div>
       </div>
       <div class="row my-2" *ngIf="response.status != 0">
@@ -26,11 +22,8 @@
               <input
                 type="text"
                 class="form-control"
-                placeholder="الرقم القومى"
-                formControlName="nationalId"
-                maxlength="14"
-                minlength="14"
-                (change)='checkNumber($event)'
+                placeholder="اسم المستخدم"
+                formControlName="Username"
               />
             </div>
           </div>
@@ -54,7 +47,7 @@
           <div class="col-12 mt-2">
             <button
               class="btn btn-primary w-100"
-              [disabled]="loginForm.invalid || !controlIsRight"
+              [disabled]="loginForm.invalid"
               type="submit"
             >
               تسجيل الدخول
@@ -66,13 +59,5 @@
         </div>
       </form>
     </div>
-    <div class="col-md-4 col-12 p-0 kar">
-      <img
-        src="../../../assets/karnak.jpg"
-        class="w-100 box-shdow h-100"
-        alt="karnak"
-      />
-    </div>
-    <div class="col-md-2 col-12 p-0"></div>
   </div>
 </div>

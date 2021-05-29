@@ -26,6 +26,7 @@
     "express": "^4.17.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.6.0",
+    "jwt-decode": "^3.1.2",
     "ngx-slick-carousel": "^0.5.1",
     "ngx-toastr": "^13.1.0",
     "query": "^0.2.0",

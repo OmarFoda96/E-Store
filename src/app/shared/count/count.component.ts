@@ -7,6 +7,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./count.component.css'],
 })
 export class CountComponent implements OnInit {
-  constructor(public PizzaService: CartService) {}
+  constructor(public cartService: CartService) {}
   ngOnInit(): void {}
 }

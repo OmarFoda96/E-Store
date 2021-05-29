@@ -1,3 +1,9 @@
+import { UsersComponent } from './adminViews/users/users.component';
+import { SalesComponent } from './adminViews/sales/sales.component';
+import { ProductsComponent } from './adminViews/products/products.component';
+import { CategoriesComponent } from './adminViews/categories/categories.component';
+import { BrandsComponent } from './adminViews/brands/brands.component';
+import { StatsComponent } from './adminViews/stats/stats.component';
 import { TokenInterceptor } from './authSystem/services/token.interceptor';
 import { Error500Component } from './errors/error500/error500.component';
 import { Error404Component } from './errors/error404/error404.component';
@@ -16,26 +22,27 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 
-import { StoreProductsComponent } from './store-products/store-products.component';
-import { CheckoutComponent } from './checkout/checkout.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { MainViewComponent } from './main-view/main-view.component';
+import { MainViewComponent } from './userViews/main-view/main-view.component';
+import { StoreProductsComponent } from './userViews/store-products/store-products.component';
+import { CheckoutComponent } from './userViews/checkout/checkout.component';
+import { NavbarComponent } from './userViews/navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { CountComponent } from './shared/count/count.component';
-import { ProductCardComponent } from './store-products/product-card/product-card.component';
+import { ProductCardComponent } from './userViews/store-products/product-card/product-card.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { PaymentComponent } from './userViews/payment/payment.component';
+import { HistoryComponent } from './userViews/history/history.component';
+import { HomePageComponent } from './userViews/home-page/home-page.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StoreProductsComponent,
-    CheckoutComponent,
     NavbarComponent,
     MainViewComponent,
     SpinnerComponent,
     CountComponent,
-    ProductCardComponent,
     LoginComponent,
     RegisterComponent,
     ForgetPasswordComponent,
@@ -43,9 +50,23 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
     Error0Component,
     Error404Component,
     Error500Component,
+    StoreProductsComponent,
+    CheckoutComponent,
+    ProductCardComponent,
+    PaymentComponent,
+    HistoryComponent,
+    HomePageComponent,
+
+    StatsComponent,
+    BrandsComponent,
+    CategoriesComponent,
+    ProductsComponent,
+    SalesComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,

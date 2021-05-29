@@ -1,5 +1,4 @@
 import { AuthSystemsService } from './auth-systems.service';
-import { TokenModel } from './../../models/toekn.iterface';
 import { Injectable } from '@angular/core';
 import {
   CanActivate,
@@ -44,14 +43,19 @@ export class AuthGaurdGuard implements CanActivate {
     this.token = localStorage.getItem('userToken');
     if (this.token) {
       let currentDay = new Date(this.today);
-      let tokenInfo: TokenModel = this.getDecodedAccessToken(this.token); // decode token
+      let tokenInfo = this.getDecodedAccessToken(this.token); // decode token
       this.authService.TokenObject = tokenInfo;
       let expireDate = tokenInfo.exp; // get token expiration dateTime
       this.expDate = new Date(expireDate * 1000);
 
       if (currentDay < this.expDate) {
-        this.validToken = true;
-        return true;
+        if (tokenInfo.role == 1) {
+          this.validToken = true;
+          return true;
+        } else {
+          this.router.navigate(['/Login']);
+          return false;
+        }
       } else {
         this.validToken = false;
         localStorage.clear();

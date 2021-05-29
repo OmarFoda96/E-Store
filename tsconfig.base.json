@@ -1,9 +1,6 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
-  "angularCompilerOptions": {
-    "strictTemplates": true,
-  },
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
@@ -19,4 +16,7 @@
     "module": "es2020",
     "lib": ["es2018", "dom"]
   }
+  // "angularCompilerOptions": {
+  //   "strictTemplates": true
+  // }
 }

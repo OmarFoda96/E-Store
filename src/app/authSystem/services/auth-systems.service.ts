@@ -14,12 +14,12 @@ export class AuthSystemsService {
   }
 
   loginUser(body) {
-    return this.http.post(`${this.url}api/Users/authenticate/`, body);
+    return this.http.post(`${this.url}/api/Users/authenticate/`, body);
   }
   registerUser(body) {
-    return this.http.post(`${this.url}api/Users/Create`, body);
+    return this.http.post(`${this.url}/api/Users/Create`, body);
   }
   forgetPassword(body) {
-    return this.http.put(`${this.url}api/Users/SendEMail`, body);
+    return this.http.put(`${this.url}/api/Users/SendEMail`, body);
   }
 }

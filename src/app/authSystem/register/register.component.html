@@ -1,111 +1,177 @@
-<app-loader *ngIf="loading"></app-loader>
+<app-spinner *ngIf="loading"></app-spinner>
 
-<div class="container" *ngIf="!loading">
-  <div class="row my-2">
-    <div class="col-md-1 col-12 p-0"></div>
-    <div class="col-5 ourForm">
-      <div class="row holder">
-        <div class="col-md-5 col-12 vert">
-          <h3 class="my-auto">مرحبا بك</h3>
-        </div>
-        <div class="col-md-7 col-12 logo">
-          <img src="../../../assets/logo.png" class="w-100" alt="logo" />
-        </div>
-      </div>
-      <form [formGroup]="registerationForm" (ngSubmit)="onSubmit()">
-        <div class="row mt-3">
-          <div class="col-12">
-            <div class="form-group">
+<div class="container-fluid" *ngIf="!loading">
+  <div class="row form-group">
+    <div class="col-6 mx-auto">
+      <div class="mainForm">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="row form-group">
+            <div class="col-12 text-center">
+              <h1 class="text-center">تسجيل الدخول</h1>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-6 mx-auto">
+              <!-- for="profilePicture" -->
+              <label class="profilePicture" for="profilePicture">
+                <img
+                  [src]="profilePicture"
+                  class="img-fluid"
+                  alt="profilePicture"
+                />
+
+                <div class="overlay text-center">
+                  <i class="text-light text-center fas fa-camera"></i>
+                </div>
+              </label>
               <input
-                type="text"
-                maxLength="14"
-                minLength="14"
-                [class]="
-                  (!registerationForm.controls.nationalId.valid &&
-                    registerationForm.controls.nationalId.touched) ||
-                  !controlIsRight
-                    ? 'outline-danger form-control'
-                    : 'form-control outline-normal'
-                "
-                placeholder="* الرقم القومى"
-                formControlName="nationalId"
-                (change)="checkNumber($event)"
+                type="file"
+                id="profilePicture"
+                class="d-none"
+                accept="image/x-png,image/gif,image/jpeg"
+                (change)="preview($event)"
               />
             </div>
-            <p class="text-danger" *ngIf="!controlIsRight">
-              هذا الرقم القومى غير صحيح
-            </p>
           </div>
-          <div class="col-12">
-            <div class="form-group">
+          <div class="row">
+            <div class="col-12">
+              <div class="label">اسم المستخدم</div>
+              <input
+                type="text"
+                [class]="
+                  Username.invalid && Username.touched
+                    ? 'form-control outline-danger'
+                    : 'form-control'
+                "
+                formControlName="Username"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="label">كلمة المرور</div>
+              <input
+                type="password"
+                [class]="
+                  Password.invalid && Password.touched
+                    ? 'form-control outline-danger'
+                    : 'form-control'
+                "
+                formControlName="Password"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="label">الاسم بالكامل</div>
+              <input
+                type="text"
+                [class]="
+                  FullName.invalid && FullName.touched
+                    ? 'form-control outline-danger'
+                    : 'form-control'
+                "
+                formControlName="FullName"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="label">البريد الالكتروني</div>
               <input
                 type="email"
                 [class]="
-                  !registerationForm.controls.email.valid &&
-                  registerationForm.controls.email.touched
-                    ? 'outline-danger form-control'
-                    : 'form-control outline-normal'
+                  Email.invalid && Email.touched
+                    ? 'form-control outline-danger'
+                    : 'form-control'
                 "
-                placeholder="* البريد الالكترونى"
-                formControlName="email"
+                formControlName="Email"
               />
             </div>
           </div>
-          <div class="col-12">
-            <div class="form-group">
-              <input
-                type="password"
+          <div class="row">
+            <div class="col-12">
+              <label for=""> نوع الحساب </label>
+              <select
                 [class]="
-                  !registerationForm.controls.password.valid &&
-                  registerationForm.controls.password.touched
-                    ? 'outline-danger form-control'
-                    : 'form-control outline-normal'
+                  Roles.invalid && Roles.touched
+                    ? 'form-control outline-danger'
+                    : 'form-control'
                 "
-                placeholder="* كلمة المرور"
-                formControlName="password"
-              />
+                formControlName="Roles"
+              >
+                <option value="1">مشتري</option>
+                <option value="2">ادمن</option>
+              </select>
             </div>
           </div>
-          <div class="col-12">
-            <div class="form-group">
-              <input
-                type="password"
-                (keyup)="checkPassword(confirmPassword)"
+          <div class="row">
+            <div class="col-6">
+              <label for=""> النوع </label>
+              <select
                 [class]="
-                  passwordConfirmed
-                    ? 'outline-danger form-control'
-                    : 'form-control outline-normal'
+                  Gender.invalid && Gender.touched
+                    ? 'form-control outline-danger'
+                    : 'form-control'
                 "
-                placeholder="* تأكيد كلمة المرور"
-                #confirmPassword
+                formControlName="Gender"
+              >
+                <option value="1">ذكر</option>
+                <option value="2">انثى</option>
+              </select>
+            </div>
+            <div class="col-6">
+              <label>تاريخ الميلاد</label>
+              <input
+                type="date"
+                [class]="
+                  Birthday.invalid && Birthday.touched
+                    ? 'form-control outline-danger'
+                    : 'form-control'
+                "
+                formControlName="Birthday"
               />
             </div>
-            <p class="text-danger" *ngIf="passwordConfirmed">
-              كلمة المرور غير متطابقة
-            </p>
           </div>
-          <div class="col-12 mt-2">
-            <button
-              [disabled]="
-                registerationForm.invalid ||
-                !controlIsRight ||
-                passwordConfirmed
-              "
-              type="submit"
-              class="btn btn-primary w-100"
-            >
-              تسجيل
-            </button>
+          <div class="row">
+            <div class="col-12">
+              <label>العنوان</label>
+              <input
+                type="text"
+                [class]="
+                  Address.invalid && Address.touched
+                    ? 'form-control outline-danger'
+                    : 'form-control'
+                "
+                formControlName="Address"
+              />
+            </div>
           </div>
-          <div class="col-12 my-2">
-            عندك حساب بالفعل ؟!<a routerLink="/Login">تسجيل الدخول</a>
+          <div class="row">
+            <div class="col-12">
+              <label>رقم التليفون</label>
+              <input
+                type="text"
+                [class]="
+                  Phone.invalid && Phone.touched
+                    ? 'form-control outline-danger'
+                    : 'form-control'
+                "
+                formControlName="Phone"
+              />
+            </div>
           </div>
-        </div>
-      </form>
+
+          <div class="row mt-3 form-group">
+            <div class="col-12">
+              <button type="submit" class="btn btn-success w-100">حفظ</button>
+            </div>
+            <div class="col-12 my-2">
+              تسجيل الدخول<a routerLink="/Login">لديك حساب بالفعل</a>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="col-5 p-0">
-      <img src="../../../assets/karnak.jpg" class="w-100 h-100" alt="karnak" />
-    </div>
-    <div class="col-md-1 col-12 p-0"></div>
   </div>
 </div>

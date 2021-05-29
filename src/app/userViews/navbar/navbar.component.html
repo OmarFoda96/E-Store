@@ -1,0 +1,114 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a
+    class="navbar-brand h1"
+    [routerLink]="role == 'user' ? '/' : '/Admin'"
+    routerLinkActive="active"
+  >
+    <img src="../../../assets/logo.png" alt="logo" class="w-50" />
+  </a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul *ngIf="role == 'user'" class="navbar-nav mx-auto">
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="role == 'user' ? '/' : '/Admin'"
+          routerLinkActive="active"
+          >الرئيسية <span class="sr-only">(current)</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/Products']"
+          routerLinkActive="active"
+          >المنتجات</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          routerLink="/My-Previous-Products"
+          routerLinkActive="active"
+          >طلباتي</a
+        >
+      </li>
+    </ul>
+    <ul *ngIf="role == 'admin'" class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/Admin" routerLinkActive="active"
+          >الرئيسية <span class="sr-only">(current)</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/Admin/Categories']"
+          routerLinkActive="active"
+          >الاصناف</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/Admin/Brands" routerLinkActive="active"
+          >الماركات</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/Admin/Admin-Products']"
+          routerLinkActive="active"
+          >المنتجات</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/Admin/Sales" routerLinkActive="active"
+          >المبيعات</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/Admin/Users']"
+          routerLinkActive="active"
+          >المستخدمين</a
+        >
+      </li>
+    </ul>
+
+    <ul class="navbar-nav mr-auto">
+      <!-- <li class="nav-item" ngbTooltip="checkout">
+        <app-count></app-count>
+      </li> -->
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          حسابي
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">تغيير كلمة السر</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" (click)="logOut()">تسجيل الخروج</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -1,64 +1,54 @@
-.ourForm {
-  background-color: white;
-  padding: 0.5px 30px;
-}
-
-.cursor {
-  cursor: pointer;
-}
-
-.outline-danger {
-  border-color: red !important;
-}
-
-.outline-normal {
-  border-color: #ced4da !important;
-}
-
-.outline-danger::placeholder {
-  color: red !important;
-}
-
-.outline-normal::placeholder {
-  color: #ced4da !important;
-}
-
-.ourForm {
-  background-color: white;
-  padding: 85.5px 30px;
+.mainForm {
+  margin: 30px 0;
   border: 1px solid #ddd;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  box-shadow: 9px 4px 17px -10px #000;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0px 8px 7px -3px #c3c3c3;
   text-align: right;
 }
 
-.logForm {
-  margin: 4.25% auto;
-}
-
-.logo img {
-  width: 100%;
-}
-
-.box-shdow {
-  box-shadow: -7px 5px 17px -10px #000;
-}
-
-.holder {
+.profilePicture {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  box-shadow: 0px 8px 7px -3px #c3c3c3;
   position: relative;
 }
 
-.vert {
-  margin: auto 0;
+.profilePicture img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
 }
 
-.kar {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+.profilePicture .overlay {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  z-index: 10;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
-.kar img {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+.profilePicture:hover .overlay {
+  opacity: 1;
+}
+
+.profilePicture .overlay>i {
+  bottom: 90px;
+  position: absolute;
+  font-size: 70px;
+  left: 36%;
+}
+
+li {
+  font-size: 20px;
+  list-style-type: arabic-indic;
 }
