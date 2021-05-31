@@ -31,7 +31,11 @@
             <td>{{ item.priceProduct }} جنيه مصري</td>
             <td>{{ item.count }}</td>
             <td>{{ item.priceProduct * item.count }} جنيه مصري</td>
-            <td class="text-center cursor-pointer text-danger">
+            <td
+              (click)="refund(item)"
+              class="text-center cursor-pointer text-danger"
+              ngbTooltip="تريد ارجاع المنتج؟"
+            >
               <i class="fas fa-undo"></i>
             </td>
           </tr>

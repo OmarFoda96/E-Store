@@ -37,4 +37,5 @@ export class HistoryComponent implements OnInit {
   goPayment() {
     this.router.navigate(['/Payment']);
   }
+  refund(id) {}
 }

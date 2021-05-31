@@ -1,3 +1,4 @@
+import { AuthSystemsService } from './../../authSystem/services/auth-systems.service';
 import { UsersService } from './../../services/users.service';
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from 'src/app/Models/user.interface';
@@ -23,6 +24,7 @@ export class UsersComponent implements OnInit {
     private modalService: NgbModal,
     config: NgbModalConfig,
     private userService: UsersService,
+    private authService: AuthSystemsService,
     private toastrService: ToastrService
   ) {
     config.backdrop = 'static';
@@ -167,7 +169,7 @@ export class UsersComponent implements OnInit {
 
     this.loading = true;
     debugger;
-    this.userService.addNewUsers(this.Photo).subscribe(
+    this.authService.registerUser(this.Photo).subscribe(
       (data: any) => {
         this.loading = false;
         this.toastrService.success('تم اضافة المستخدم بنجاح', 'عملية ناجحة');

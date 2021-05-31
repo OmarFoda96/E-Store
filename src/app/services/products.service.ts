@@ -34,6 +34,10 @@ export class ProductsService {
     return this.http.get(`${this.url}/api/Transaction/DoneTransaction/${id}`);
   }
 
+  refund(id) {
+    return this.http.get(`${this.url}/api/Transaction/Refund/${id}`);
+  }
+
   getAllProducts() {
     return this.http.get(`${this.url}/api/Products/`);
   }

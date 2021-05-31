@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
     this.authSystem.loginUser(body).subscribe(
       (data: any) => {
         let tokenInfo = this.getDecodedAccessToken(data.token);
+        localStorage.setItem('balance', tokenInfo.balance);
         if (tokenInfo.role == 1) {
           localStorage.setItem('role', 'user');
           this.router.navigate(['/']);
