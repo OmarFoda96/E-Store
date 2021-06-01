@@ -114,47 +114,81 @@ export class StoreProductsComponent implements OnInit {
     });
   }
 
-  goCart() {
+  newProduct = [];
+  goCart(content) {
+    this.getFinalPrice();
+    this.modalService.open(content);
     let currentProducts = this.cartService.products;
     currentProducts.sort((a, b) => {
       return a.id - b.id;
     });
-    let newProduct = [];
     for (let i = 0; i < currentProducts.length; i++) {
-      if (newProduct.length > 0) {
-        let x = newProduct.find((el) => {
+      if (this.newProduct.length > 0) {
+        let x = this.newProduct.find((el) => {
           return el.productId === currentProducts[i].id;
         });
 
         if (x) {
           x.count++;
         } else {
-          newProduct.push({
+          this.newProduct.push({
             productId: currentProducts[i].id,
             count: 1,
           });
         }
       } else {
-        newProduct.push({
+        this.newProduct.push({
           productId: currentProducts[i].id,
           count: 0,
         });
         i--;
       }
     }
-    this.sendCartItem(newProduct);
   }
 
-  sendCartItem(productList) {
-    this.getFinalPrice();
+  balance = parseFloat(localStorage.getItem('balance'));
+  sendCartItem(productList, paymentWay) {
     let body = {
       product: productList,
       isDone: false,
       totalPrice: this.totalPrice,
+      paymentType: paymentWay,
     };
+    this.dataLoaded=false
     this.productsService.sendCartItem(body).subscribe((data: any) => {
       localStorage.setItem('trans', data.data);
-      this.router.navigate(['/Checkout']);
+      if (paymentWay) {
+        this.productsService.confirmSell(data.data).subscribe((data) => {
+          this.modalService.dismissAll();
+          this.dataLoaded=true
+          this.router.navigate(['/Checkout']);
+        });
+      }else{
+        this.router.navigate(['/Checkout']);
+
+      }
     });
+  }
+
+  goPayment(paymentWay) {
+    this.dataLoaded=false
+    if (paymentWay) {
+      if (this.balance < this.totalPrice) {
+        this.dataLoaded=true
+        this.toasterService.error(
+          'عملية غير ناجحة',
+          'عفواً, رصيدك لا يكفي لإتمام عملية الشراء'
+          );
+        } else {
+        this.dataLoaded=true
+        this.sendCartItem(this.newProduct, paymentWay);
+        this.balance = this.balance - this.totalPrice;
+        localStorage.setItem('balance', this.balance.toString());
+      }
+    } else {
+      this.dataLoaded=true
+      this.sendCartItem(this.newProduct, paymentWay);
+      this.modalService.dismissAll();
+    }
   }
 }

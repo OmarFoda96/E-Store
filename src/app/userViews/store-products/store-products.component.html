@@ -8,7 +8,7 @@
       <button
         class="btn btn-warning d-inline mx-4"
         [disabled]="cartService.products.length <= 0"
-        (click)="goCart()"
+        (click)="goCart(content)"
       >
         الى سلة الشراء
       </button>
@@ -66,3 +66,20 @@
     </div>
   </div>
 </div>
+
+
+
+
+<ng-template #content>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">وسيلة الدفع</h4>
+  </div>
+  <div class="modal-body">
+    <h3 *ngIf="dataLoaded">برجاء اختيار وسيلة الدفع ؟</h3>
+    <app-spinner *ngIf="!dataLoaded"></app-spinner>
+  </div>
+  <div *ngIf="dataLoaded" class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)='goPayment(true)'>رصيدي</button>
+    <button type="button" class="btn btn-outline-dark" (click)='goPayment(false)'>فيزا</button>
+  </div>
+</ng-template>

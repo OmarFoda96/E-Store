@@ -38,7 +38,6 @@ export class CheckoutComponent implements OnInit {
     this.productsService.getCartItems(cartId).subscribe((data: any) => {
       this.dataLoaded = true;
       this.kinds = data.data;
-
       this.kinds.forEach((element) => {
         if (!element.isDone) {
           this.sellDone = false;
@@ -52,8 +51,7 @@ export class CheckoutComponent implements OnInit {
       this.finalPrice += element.priceProduct * element.count;
     });
   }
-  goPayment(paymentWay) {
-    localStorage.setItem('paymentWay', paymentWay);
+  goPayment() {
     this.router.navigate(['/Payment']);
   }
   ngOnDestroy(): void {
