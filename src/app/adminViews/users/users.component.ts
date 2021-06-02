@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthSystemsService } from './../../authSystem/services/auth-systems.service';
 import { UsersService } from './../../services/users.service';
 import { Component, OnInit } from '@angular/core';
@@ -25,6 +26,7 @@ export class UsersComponent implements OnInit {
     config: NgbModalConfig,
     private userService: UsersService,
     private authService: AuthSystemsService,
+    private router: Router,
     private toastrService: ToastrService
   ) {
     config.backdrop = 'static';
@@ -58,9 +60,12 @@ export class UsersComponent implements OnInit {
   }
   selectedGov: UserModel;
   search(key) {
-    this.users = this.govs.filter((element: UserModel) => {
-      return element.fullName.includes(key);
-    });
+    this.users = this.govs;
+    if (key.value != 'null') {
+      this.users = this.govs.filter((element: UserModel) => {
+        return element.fullName.includes(key.value);
+      });
+    }
   }
   searchByPhone(key) {
     this.users = this.govs;
@@ -168,14 +173,16 @@ export class UsersComponent implements OnInit {
     }
 
     this.loading = true;
-    debugger;
     this.authService.registerUser(this.Photo).subscribe(
       (data: any) => {
+        this.modalService.dismissAll();
         this.loading = false;
         this.toastrService.success('تم اضافة المستخدم بنجاح', 'عملية ناجحة');
         // this.router.navigate(['/Login']);
         this.form.reset();
-        location.href = '/Login';
+        this.router.navigate(['/']).then(() => {
+          this.router.navigate(['/Admin/Users']);
+        });
       },
       (error) => {
         this.loading = false;
@@ -187,5 +194,18 @@ export class UsersComponent implements OnInit {
         }
       }
     );
+  }
+
+  selectedUser: UserModel;
+  deleteUser(content2, item) {
+    this.selectedUser = item;
+    this.modalService.open(content2);
+  }
+  confirmDelete() {
+    this.userService.deleteUsers(this.selectedUser.id).subscribe((data) => {
+      this.toastrService.success('تم حذف المستخدم بنجاح', 'عملية ناجحة');
+      this.modalService.dismissAll();
+      this.refreshView();
+    });
   }
 }

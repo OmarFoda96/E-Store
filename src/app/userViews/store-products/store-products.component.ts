@@ -154,39 +154,39 @@ export class StoreProductsComponent implements OnInit {
       totalPrice: this.totalPrice,
       paymentType: paymentWay,
     };
-    this.dataLoaded=false
+    this.dataLoaded = false;
     this.productsService.sendCartItem(body).subscribe((data: any) => {
       localStorage.setItem('trans', data.data);
       if (paymentWay) {
         this.productsService.confirmSell(data.data).subscribe((data) => {
           this.modalService.dismissAll();
-          this.dataLoaded=true
+          this.dataLoaded = true;
           this.router.navigate(['/Checkout']);
         });
-      }else{
+      } else {
         this.router.navigate(['/Checkout']);
-
       }
     });
   }
 
   goPayment(paymentWay) {
-    this.dataLoaded=false
+    this.dataLoaded = false;
     if (paymentWay) {
       if (this.balance < this.totalPrice) {
-        this.dataLoaded=true
+        this.dataLoaded = true;
         this.toasterService.error(
           'عملية غير ناجحة',
           'عفواً, رصيدك لا يكفي لإتمام عملية الشراء'
-          );
-        } else {
-        this.dataLoaded=true
+        );
+      } else {
+        this.dataLoaded = true;
         this.sendCartItem(this.newProduct, paymentWay);
         this.balance = this.balance - this.totalPrice;
         localStorage.setItem('balance', this.balance.toString());
+        this.productsService.balance = this.balance.toString();
       }
     } else {
-      this.dataLoaded=true
+      this.dataLoaded = true;
       this.sendCartItem(this.newProduct, paymentWay);
       this.modalService.dismissAll();
     }

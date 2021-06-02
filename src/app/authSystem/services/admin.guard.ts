@@ -39,7 +39,6 @@ export class AdminGuard implements CanActivate {
     | boolean
     | UrlTree {
     this.token = localStorage.getItem('userToken');
-    debugger;
     if (this.token) {
       let currentDay = new Date(this.today);
       let tokenInfo = this.getDecodedAccessToken(this.token); // decode token

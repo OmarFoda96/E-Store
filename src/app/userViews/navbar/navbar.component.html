@@ -88,9 +88,9 @@
     </ul>
 
     <ul class="navbar-nav mr-auto">
-      <!-- <li class="nav-item" ngbTooltip="checkout">
+      <li class="nav-item my-auto" *ngIf="role == 'user'" ngbTooltip="checkout">
         <app-count></app-count>
-      </li> -->
+      </li>
       <li class="nav-item dropdown">
         <a
           class="nav-link dropdown-toggle"
@@ -104,8 +104,6 @@
           حسابي
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">تغيير كلمة السر</a>
-          <div class="dropdown-divider"></div>
           <a class="dropdown-item" (click)="logOut()">تسجيل الخروج</a>
         </div>
       </li>

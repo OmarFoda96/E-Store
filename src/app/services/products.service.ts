@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProductsService {
   url = environment.base_url;
+  balance = localStorage.getItem('balance');
 
   constructor(private http: HttpClient) {}
   getAllData() {
@@ -36,6 +37,9 @@ export class ProductsService {
 
   refund(id) {
     return this.http.get(`${this.url}/api/Transaction/Refund/${id}`);
+  }
+  getAllStats() {
+    return this.http.get(`${this.url}/api/Home/statics`);
   }
 
   getAllProducts() {

@@ -12,7 +12,6 @@
       >
         الى سلة الشراء
       </button>
-      <app-count></app-count>
     </div>
   </div>
   <div class="row">
@@ -67,9 +66,6 @@
   </div>
 </div>
 
-
-
-
 <ng-template #content>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">وسيلة الدفع</h4>
@@ -79,7 +75,19 @@
     <app-spinner *ngIf="!dataLoaded"></app-spinner>
   </div>
   <div *ngIf="dataLoaded" class="modal-footer">
-    <button type="button" class="btn btn-outline-primary" (click)='goPayment(true)'>رصيدي</button>
-    <button type="button" class="btn btn-outline-dark" (click)='goPayment(false)'>فيزا</button>
+    <button
+      type="button"
+      class="btn btn-outline-primary"
+      (click)="goPayment(true)"
+    >
+      رصيدي
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="goPayment(false)"
+    >
+      فيزا
+    </button>
   </div>
 </ng-template>

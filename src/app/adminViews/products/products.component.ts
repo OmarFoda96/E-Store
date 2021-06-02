@@ -1,3 +1,5 @@
+import { element } from 'protractor';
+import { CartModel } from './../../Models/cart.interface';
 import { Router } from '@angular/router';
 import { environment } from './../../../environments/environment';
 import { BrandsService } from './../../services/brands.service';
@@ -149,11 +151,13 @@ export class ProductsComponent implements OnInit {
       this.categories = data;
     });
   }
+
   refreshView() {
     this.dataLoaded = false;
     this.productsService.getAllProducts().subscribe((data: any[]) => {
       this.dataLoaded = true;
       let hos2: any[] = data;
+
       this.govs = data;
       this.products = hos2
         .map((country, i) => ({ id: i + 1, ...country }))
@@ -205,13 +209,13 @@ export class ProductsComponent implements OnInit {
         this.modalService.dismissAll();
         this.form.reset();
         this.router.navigate(['/']).then(() => {
-          this.router.navigate(['/Products']);
+          this.router.navigate(['/Admin/Admin-Products']);
         });
       },
       (error) => {
         this.toasterService.error('لم يتم اضافة صنف بنجاح', 'عملية غير ناجحة');
         this.router.navigate(['/']).then(() => {
-          this.router.navigate(['/Products']);
+          this.router.navigate(['/Admin/Admin-Products']);
         });
       }
     );
@@ -232,7 +236,7 @@ export class ProductsComponent implements OnInit {
           this.modalService.dismissAll();
           this.editForm.reset();
           this.router.navigate(['/']).then(() => {
-            this.router.navigate(['/Products']);
+            this.router.navigate(['/Admin/Admin-Products']);
           });
         },
         (error) => {
@@ -241,7 +245,7 @@ export class ProductsComponent implements OnInit {
             'عملية غير ناجحة'
           );
           this.router.navigate(['/']).then(() => {
-            this.router.navigate(['/Products']);
+            this.router.navigate(['/Admin/Admin-Products']);
           });
         }
       );

@@ -46,7 +46,7 @@
             </div>
           </div>
           <div class="card-body">
-            <table class="table table-striped table-hover">
+            <table class="table table-bordered table-striped table-hover">
               <thead>
                 <tr>
                   <th scope="col">صورة المنتج</th>
@@ -67,8 +67,8 @@
                     />
                   </td>
                   <td>{{ item.product.nameAr }}</td>
-                  <td>{{ item.product.categoryId }}</td>
-                  <td>{{ item.product.brandId }}</td>
+                  <td>{{ item.product.category.nameAr }}</td>
+                  <td>{{ item.product.brand.nameAr }}</td>
                   <td>{{ item.priceProduct }} جنيه مصري</td>
                   <td>{{ item.count }}</td>
                   <td>{{ item.priceProduct * item.count }} جنيه مصري</td>

@@ -10,7 +10,9 @@
         <div class="row h-100">
           <div class="col-lg-8 col-12 cardTexts">
             <h3 class="">المبيعات</h3>
-            <p class="h1 my-5"></p>
+            <p class="h1 text-dark my-5" *ngIf="stats">
+              {{ stats.countTransactionDone }}
+            </p>
           </div>
           <div
             data-aos="fade-in"
@@ -32,7 +34,10 @@
       <div class="statCArd">
         <div class="row h-100">
           <div class="col-lg-8 col-12 cardTexts">
-            <h3 class="">عدد االمنتجات</h3>
+            <h3 class="">عدد المنتجات</h3>
+            <p class="h1 text-dark my-5" *ngIf="stats">
+              {{ stats.countProduct }}
+            </p>
           </div>
           <div
             data-aos="fade-in"
@@ -55,6 +60,9 @@
         <div class="row h-100">
           <div class="col-lg-8 col-12 cardTexts">
             <h3 class="">عدد المستخدمين</h3>
+            <p class="h1 text-dark my-5" *ngIf="stats">
+              {{ stats.countUserWebsite }}
+            </p>
           </div>
           <div
             data-aos="fade-in"

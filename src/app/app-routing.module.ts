@@ -63,7 +63,7 @@ const routes: Routes = [
   {
     path: 'Admin',
     component: MainViewComponent,
-    // canActivate: [AdminGuard],
+    canActivate: [AdminGuard],
     children: [
       {
         path: '',
