@@ -55,6 +55,7 @@
                   <th scope="col">الماركة</th>
                   <th scope="col">السعر</th>
                   <th scope="col">الكمية</th>
+                  <th scope="col">تاريخ العملية</th>
                   <th scope="col">اجمالي السعر</th>
                 </tr>
               </thead>
@@ -71,6 +72,7 @@
                   <td>{{ item.product.brand.nameAr }}</td>
                   <td>{{ item.priceProduct }} جنيه مصري</td>
                   <td>{{ item.count }}</td>
+                  <td>{{ item.createdAt|date:'yyyy-MM-dd' }}</td>
                   <td>{{ item.priceProduct * item.count }} جنيه مصري</td>
                 </tr>
               </tbody>
