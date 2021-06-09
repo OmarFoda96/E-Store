@@ -48,6 +48,7 @@
                 <th scope="col" class="text-center">الماركة</th>
                 <th scope="col" class="text-center">الكمية</th>
                 <th scope="col" class="text-center">السعر</th>
+                <th scope="col" class="text-center">عدد مرات الارجاع</th>
                 <th scope="col" class="text-center">صورة للمنتج</th>
                 <th scope="col" class="text-center"></th>
               </tr>
@@ -78,6 +79,9 @@
                 </td>
                 <td class="text-center">
                   {{ item.price }}
+                </td>
+                <td class="text-center">
+                  {{ item.countRefund }}
                 </td>
                 <td class="text-center">
                   <i

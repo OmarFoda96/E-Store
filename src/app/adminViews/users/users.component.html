@@ -49,6 +49,8 @@
                   <th scope="col">رقم الهاتف</th>
                   <th scope="col">النوع</th>
                   <th scope="col">الرصيد</th>
+                  <th scope="col" class="text-center">عدد مرات الارجاع</th>
+
                   <th scope="col">نوع الحساب</th>
                   <th scope="col"></th>
                 </tr>
@@ -59,6 +61,9 @@
                   <td>{{ item.phone }}</td>
                   <td>{{ item.gender == "1" ? "ذكر" : "انثى" }}</td>
                   <td>{{ item.balance }} جنيه مصري</td>
+                  <td class="text-center">
+                    {{ item.countRefund }}
+                  </td>
                   <td>{{ item.roles == "1" ? "مشتري" : "ادمن" }}</td>
                   <td
                     (click)="deleteUser(content2, item)"

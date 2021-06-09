@@ -10,6 +10,7 @@ export interface ProductsModel {
   nameAr: string;
   nameEn: string;
   categoryId: number;
+  countRefund: number;
   category: CategoriesModel;
   brand: CategoriesModel;
   brandId: number;
