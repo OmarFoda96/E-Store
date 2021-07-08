@@ -76,7 +76,7 @@ export class CategoriesComponent implements OnInit {
           (this.page - 1) * this.pageSize,
           (this.page - 1) * this.pageSize + this.pageSize
         );
-      this.collectionSize = this.categories.length;
+      this.collectionSize = this.govs.length;
     });
   }
 

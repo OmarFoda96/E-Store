@@ -165,7 +165,7 @@ export class ProductsComponent implements OnInit {
           (this.page - 1) * this.pageSize,
           (this.page - 1) * this.pageSize + this.pageSize
         );
-      this.collectionSize = this.products.length;
+      this.collectionSize = this.govs.length;
     });
   }
 

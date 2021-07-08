@@ -49,7 +49,7 @@ export class SalesComponent implements OnInit {
           (this.page - 1) * this.pageSize,
           (this.page - 1) * this.pageSize + this.pageSize
         );
-      this.collectionSize = this.transactions.length;
+      this.collectionSize = this.govs.length;
     });
   }
   brands: CategoriesModel[];

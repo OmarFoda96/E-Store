@@ -76,7 +76,7 @@ export class BrandsComponent implements OnInit {
           (this.page - 1) * this.pageSize,
           (this.page - 1) * this.pageSize + this.pageSize
         );
-      this.collectionSize = this.BloodTypes.length;
+      this.collectionSize = this.govs.length;
     });
   }
 

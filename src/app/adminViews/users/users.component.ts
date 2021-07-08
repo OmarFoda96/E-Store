@@ -51,7 +51,7 @@ export class UsersComponent implements OnInit {
           (this.page - 1) * this.pageSize,
           (this.page - 1) * this.pageSize + this.pageSize
         );
-      this.collectionSize = this.users.length;
+      this.collectionSize = this.govs.length;
     });
   }
 
